@@ -1,29 +1,104 @@
 #include <iostream>
-#include <chrono>
+using namespace std;
+#include "librarian.h"
+#include "library.h"
 
-using namespace std; // Enables direct use of names in the std namespace
 
-int main() {
-    const int numIterations = 1000000; // Number of iterations
 
-    // Start the timer
-    auto start = chrono::high_resolution_clock::now();
+int main()
+{
+    int x;
+    cout << "Enter : 5 for librarian and 10 for student "<<"\n";
+    cout << "Enter your choice : ";
+    cin >> x;
 
-    // Loop to be timed
-    long long sum = 0;
-    for (int i = 0; i < numIterations; ++i) {
-        sum += i; // Simple operation to add up the numbers
+    //Librarian Section
+    if (x == 5)
+    {       
+        cout << "Welcome to Librarian Section !!"<<"\n";
+        cout << "For accessing your actions you need to login !!"<<"\n";
+
+        librarian l1;
+
+        
+        int count = 0;
+        while(count < 3)
+        {
+            string name, password;
+            cout <<"Enter username : ";
+            cin >> name;
+            cout <<"Enter password : ";
+            cin >> password;
+            if(l1.Login(name, password))
+            {
+                cout << "Enter 1 : Read Student list"<<"\n"<< "Enter 2 : Read Books list"<<"\n"<< "Enter 3 : Update Student and Books list"<<"\n";
+                int choice;
+                cout << "Enter choice : ";
+                cin >> choice;
+                    
+                switch (choice)
+                {
+                    case 1:
+                        cout << "Reading Student list "<<"\n";                
+                        l1.ReadStudentList();
+                        break;
+                    case 2:
+                        cout << "Reading Books list "<<"\n";
+                        l1.ReadBooksList();
+                        break;               
+                }
+            }
+           
+        }
+    }   
+    
+    // Student Section
+    else if(x == 10)
+    {
+        int choice;
+        cout << "For SignUp : 1"<<"\n"<<"For Login : 2"<<"\n";
+        cout << "Enter your choice : ";
+        cin >> choice;
+
+        student s1;
+        library a1;
+
+        if(choice == 1)
+        {
+            string Name, Id;
+            cout <<"Enter your name : ";
+            cin >> Name;
+            
+            cout << "Enter your Enrollment no : ";
+            cin >> Id;
+            s1.SignUp(Name, Id);
+        }
+
+        else if (choice == 2)
+        {
+            string studentId;
+            cout << "Enter Student Id : "<<"\n";
+            cin >> studentId;
+
+            bool signin =  s1.Login(studentId);
+
+            if(signin == true)
+            {
+                
+            }
+            else
+            {
+                cout << "Invalid Id !!";
+            }
+        }
+        
     }
 
-    // End the timer
-    auto end = chrono::high_resolution_clock::now();
-
-    // Calculate the elapsed time in microseconds
-    auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
-    cout << "Time taken by the loop: " << duration.count() << " microseconds\n";
-
-    // Display the result of the loop calculation (optional)
-    cout << "Sum: " << sum << '\n';
+    else
+    {
+        cout << "Invalid Choice !!";
+    }
 
     return 0;
+    
 }
