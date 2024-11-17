@@ -105,9 +105,9 @@ class csv
         if (!found) {
             cout << "No match found for '" << searchTerm << "' in column '" << columnName << "'." << endl;
         }
-        return found;
-
+        
         file.close();
+        return found;
     }
 
     void csvRead(const string& filename) 

@@ -1,171 +1,111 @@
 #include <iostream>
 using namespace std;
 #include "library.h"
+#include "functions.h"
 
 int main()
 {
+    int choice;
     string date;
     cout << "Enter date (DD-MM-YYYY) : ";
     cin >> date; 
-    int x;
-    cout << "Enter : 5 for librarian and 10 for student "<<"\n";
-    cout << "Enter your choice : ";
-    cin >> x;
 
-
+    string options[] = {"Librarian", "Student"};
+    int x = selection(options, 2);
+ 
     //Librarian Section
-    if (x == 5) /*Need Change by Harsh*/
+    if (x == 1)
     {       
         cout << "Welcome to Librarian Section !!"<<"\n";
-        cout << "For accessing your actions you need to login !!"<<"\n";
+        cout << "For accessing your actions you need to login!!"<<"\n";
 
-        librarian l1; /*Need Change */
+        Librarian librarian;
 
-        int count = 0;
-        while(count < 3) /*Need Change*/
-        {
-            string name, password;
-            cout <<"Enter username : ";
-            cin >> name;
-            cout <<"Enter password : ";
-            cin >> password;
-            if(l1.Login(name, password) && count < 3)
-            {               
-                cout << "Enter 1 : Read Student list"<<"\n"<< "Enter 2 : Read Books list"<<"\n"<<"Enter 3 : Add New Book "<<"\n"<<"Enter 4 : Remove Unavailable Book "<<"\n";
-                int choice;
-                cout << "Enter choice : ";
-                cin >> choice;
-                    
-                switch (choice)
-                {
-                    case 1:
-                    {
-                        cout << "Reading Student list "<<"\n";                
-                        l1.ReadStudentList(); 
-                        return 0;
-                    }
-                    case 2:
-                    {
-                        cout << "Reading Books list "<<"\n";
-                        l1.ReadBooksList();
-                        return 0;
-                    }
-                    case 3:
-                    {
-                        string bookname, book_Id;
-                        cout << "Enter Book name : ";
-                        cin >> bookname;
-                        cout << "Enter Book Id : ";
-                        cin >> book_Id;
+        bool foo = librarian.Login();
 
-                        l1.AddBook(bookname, book_Id);
-                        return 0;                       
-                    }
-                    case 4:
-                    {
-                        string bookname;
-                        cout << "Enter Book name : ";
-                        cin >> bookname;
-                        l1.removeBook(bookname); //Needed Changes//
-                        return 0;
-                    }
-                }
-            }
-            else
-            {
-                count++;
-            }           
-        }
-        cout << "Max limit reached !!"<<"\n";
-    }   
-    
-    // Student Section
-    else if(x == 10)
-    {
-        int choice;
-        cout << "For SignUp : 1"<<"\n"<<"For Login : 2"<<"\n";
-        cout << "Enter your choice : ";
-        cin >> choice;
-
-        student s1;
-        library a1;
-
-        if(choice == 1)
-        {
-            int count = 0;           
-            string Name, Id;
-            cout <<"Enter your name : ";
-            cin >> Name;
-            cout << "Enter your Enrollment no : ";
-            cin >> Id;
-            s1.SignUp(Name, Id);
-
-            cout << "Enter 1 : Deposit"<<"\n"<< "Enter 2 : Borrow"<<"\n"; /*Only Borrow*/
-            int choice;
-            cout << "Enter choice : ";
-            cin >> choice;
-       
+        if(foo)
+        {               
+            string options[] = {"Read Student list", "Read Books list", "Add New Book", "Remove Unavailable Book"};
+            choice = selection(options, 4);
+                
             switch (choice)
             {
-                case 1:  
-                {                   
-                    a1.deposit(Id, date);
-                    break;
+                case 1:
+                {
+                    cout << "Reading Student list "<<"\n";                
+                    librarian.ReadStudentList(); 
                     return 0;
                 }
                 case 2:
-                {                    
-                    string bookname;
-                    cout <<"\n"<< "Enter bookname : ";
-                    cin >> bookname;
-                    a1.borrow(Id, bookname, date); 
-                    return 0; 
-                }             
-            } 
-        }
-
-        else if (choice == 2)
-        {            
-            int count = 0;
-            while (count < 3) /*Need Change*/
-            {
-                string studentId;
-                cout << "Enter Student Id : ";
-                cin >> studentId;
-               if(s1.Login(studentId) && count < 3)
                 {
-                    /*code for borrow and deposit */
-                    cout << "Enter 1 : Deposit"<<"\n"<< "Enter 2 : Borrow"<<"\n";
-                    int choice;
-                    cout << "Enter choice : ";
-                    cin >> choice;
-                            
-                    switch (choice)
-                    {
-                        case 1: 
-                        {
-                            a1.deposit(studentId, date);
-                            return 0;
-                        }
-                        case 2:
-                        {
-                            a1.borrow(studentId, "", date);
-                            return 0;
-                        }              
-                    }
+                    cout << "Reading Books list "<<"\n";
+                    librarian.ReadBooksList();
+                    return 0;
                 }
-                else
+                case 3:
                 {
-                    count ++;
-                    cout << "Invalid Id !!"<<"\n";
+                    string bookname, book_Id;
+                    cout << "Enter Book name : ";
+                    cin >> bookname;
+                    cout << "Enter Book Id : ";
+                    cin >> book_Id;
+
+                    librarian.AddBook(bookname, book_Id);
+                    return 0;                       
+                }
+                case 4:
+                {
+                    string bookname;
+                    cout << "Enter Book name : ";
+                    cin >> bookname;
+                    librarian.removeBook(bookname); //Needed Changes//
+                    return 0;
                 }
             }
-            cout << "Max limit reached !!"<<"\n";         
-        }      
-    }
+        }
+        else
+        {
+            return 0;
+        }
+    }   
+    
+    // Student Section
     else
     {
-        cout << "Invalid Choice !!";
+        string options2[] = {"Signup", "Login"};
+        choice = selection(options2, 2);
+
+        Student student;
+        Library library;
+
+        string studentId;
+        if(choice == 1)
+        {         
+            
+            studentId = student.SignUp();
+        }
+
+        else
+        {            
+            studentId = student.Login();
+        }
+
+        /*code for borrow and deposit */
+        string options1[] = {"Deposit", "Borrow"};
+        choice = selection(options1, 2);
+                
+        switch (choice)
+        {
+            case 1: 
+            {
+                library.deposit(studentId, date);
+                return 0;
+            }
+            case 2:
+            {
+                library.borrow(studentId, "", date);
+                return 0;
+            }              
+        }     
     }
-  
 }

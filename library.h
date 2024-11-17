@@ -4,7 +4,7 @@
 
 #pragma once
 
-class library : public student, librarian 
+class Library : public Student, Librarian 
 {
     public:
 
@@ -31,6 +31,7 @@ class library : public student, librarian
     double fineCalculator(string stud_id)
     {
         /*to compare date from assinged */
+        return 0;
     }
 
     void deposit (string stud_id, string date)

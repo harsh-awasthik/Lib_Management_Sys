@@ -2,10 +2,10 @@
 #include "person.h"
 #pragma once
 
-class librarian : public person
+class Librarian : public Person
 {
 private:
-    string password = "Lib@2024";
+    string pass = "Lib@2024";
     string Id = "Ashraf_Sir";
 protected:
     string filename1 = "student.csv";   
@@ -18,23 +18,33 @@ public:
     {
         cout <<"Librarian not require sign up";
     }
-    bool Login()
-    {
-        cout <<"Default ";
-    }
 
-    bool Login (string username, string password) 
+    bool Login () 
     {
-        if (password == "Lib@2024" && username == "Ashraf_Sir")
+        string username, password;
+        int i = 0;
+        
+        while (i < 3)
         {
-            cout << "Login Successful  "<<"\n";
-            return true;
+            cout <<"Enter username : ";
+            cin >> username;
+            cout <<"Enter password : ";
+            cin >> password;
+
+            if (password == pass && username == Id)
+            {
+                cout << "Login Successful  "<<"\n";
+                return true;
+            }
+            else
+            {               
+                cout << "Invalid USername or password!!"<<"\n";
+                i++;
+                cout << "Try again... (Attempt/s left " << 3-i << ")" << endl;
+                       
+            }         
         }
-        else
-        {               
-            cout << "Invalid USername or password !!"<<"\n"; 
-                     
-        }         
+        cout << "Maximum Attempts Reached!" <<endl;
         return false;
     }
     

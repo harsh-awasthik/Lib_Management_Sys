@@ -2,44 +2,50 @@
 #include "person.h"
 #pragma once
 
-class student : public person
+class Student : public Person
 {
     private :
     string filename = "student.csv";
 
     public :
 
-    void SignUp()
-    {
-        cout << "";
-    }
-
-    void SignUp(string Name, string Id) 
+    string SignUp() 
     {   
+        string Name, Id;
+        cout <<"Enter your name : ";
+        cin >> Name;
+        cout << "Enter your Enrollment no : ";
+        cin >> Id;
         csvWriteStudentList(filename, Name, Id);
         cout <<"\n"<<"Sign Up successful !!"<<"\n";
+        return Id;
     }
 
-    bool Login()
-    {
-        cout <<"";
-    }
-
-    bool Login(string studentId)
-    {        
-        string colnname = "Student_Id";
-        if (csvSearch(filename , studentId, colnname))
+    string Login()
+    { 
+        int attempts = 3;
+        while (attempts > 0)
         {
-            cout << "Login successful " <<endl;
-            return true;
-        }
+            string studentId;
+            cout << "Enter Student Id : ";
+            cin >> studentId;
 
-        else
-        {
-            cout <<"UserId not found !"<<"\n";
-            cout <<"Enter valid Id 🙂"<<"\n";
+            string colnname = "Student_Id";
+            if (csvSearch(filename , studentId, colnname))
+            {
+                cout << "Login successful " <<endl;
+                return studentId;
+            }
+
+            else
+            {
+                cout <<"UserId not found !"<<"\n";
+                cout <<"Enter valid Id 🙂"<<"\n";
+                attempts--;
+            }
         }
-        return false;
+        cout << "Maximum attempts reached..." << endl;
+        return "None";
     }
 
 
