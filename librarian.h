@@ -5,8 +5,8 @@
 class Librarian : public Person
 {
 private:
-    string pass = "Lib@2024";
-    string Id = "Ashraf_Sir";
+    string pass = "a";
+    string Id = "a";
 protected:
     string filename1 = "student.csv";   
     string filename2 = "books.csv";

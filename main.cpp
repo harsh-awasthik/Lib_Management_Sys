@@ -15,7 +15,8 @@ int main()
  
     //Librarian Section
     if (x == 1)
-    {       
+    {  
+        cout << "----------------------------------" << endl;     
         cout << "Welcome to Librarian Section !!"<<"\n";
         cout << "For accessing your actions you need to login!!"<<"\n";
 
@@ -24,42 +25,50 @@ int main()
         bool foo = librarian.Login();
 
         if(foo)
-        {               
-            string options[] = {"Read Student list", "Read Books list", "Add New Book", "Remove Unavailable Book"};
-            choice = selection(options, 4);
-                
-            switch (choice)
+        {                
+            while (true)
             {
-                case 1:
+                cout << "----------------------------------" << endl;
+                string options[] = {"Read Student list", "Read Books list", "Add New Book", "Remove Unavailable Book", "Exit"};
+                choice = selection(options, 5);
+                switch (choice)
                 {
-                    cout << "Reading Student list "<<"\n";                
-                    librarian.ReadStudentList(); 
-                    return 0;
-                }
-                case 2:
-                {
-                    cout << "Reading Books list "<<"\n";
-                    librarian.ReadBooksList();
-                    return 0;
-                }
-                case 3:
-                {
-                    string bookname, book_Id;
-                    cout << "Enter Book name : ";
-                    cin >> bookname;
-                    cout << "Enter Book Id : ";
-                    cin >> book_Id;
+                    case 1:
+                    {
+                        cout << "Reading Student list "<<"\n";                
+                        librarian.ReadStudentList(); 
+                        break;
+                    }
+                    case 2:
+                    {
+                        cout << "Reading Books list "<<"\n";
+                        librarian.ReadBooksList();
+                        break;
+                    }
+                    case 3:
+                    {
+                        string bookname, book_Id;
+                        cout << "Enter Book name : ";
+                        cin >> bookname;
+                        cout << "Enter Book Id : ";
+                        cin >> book_Id;
 
-                    librarian.AddBook(bookname, book_Id);
-                    return 0;                       
-                }
-                case 4:
-                {
-                    string bookname;
-                    cout << "Enter Book name : ";
-                    cin >> bookname;
-                    librarian.removeBook(bookname); //Needed Changes//
-                    return 0;
+                        librarian.AddBook(bookname, book_Id); 
+                        break;                     
+                    }
+                    case 4:
+                    {
+                        string bookname;
+                        cout << "Enter Book name : ";
+                        cin >> bookname;
+                        librarian.removeBook(bookname); //Needed Changes//
+                        break;
+                    }
+                    case 5:
+                    {
+                        cout << "Exiting Document...." << endl;
+                        return 0;
+                    }
                 }
             }
         }
@@ -72,6 +81,10 @@ int main()
     // Student Section
     else
     {
+        cout << "----------------------------------" << endl;
+        cout << "Welcome to Student Section !!"<<"\n";
+
+
         string options2[] = {"Signup", "Login"};
         choice = selection(options2, 2);
 

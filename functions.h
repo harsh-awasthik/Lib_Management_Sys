@@ -19,12 +19,13 @@ int selection(string* options, int size)
         options[i] = toLowerCase(options[i]);
     }
 
-    string input;
-    cout << "Enter your Choice: ";
-    cin >> input;
+
 
     while (true)
     {
+        string input;
+        cout << "Enter your Choice: ";
+        cin >> input;
         for (int i = 0; i < size; i++)
         {
             if (input == to_string(i+1) || input == options[i])
