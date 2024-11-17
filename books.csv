@@ -1,5 +1,7 @@
-book_id, Book_name
-1, "Ayush_goyal"
-2, "HarshAwasthi" 
-3, "Pragati Jain"
-4, "Kunjal Varshney"
+book_id,Book_name,Availability
+1,"Ayush_goyal",true
+2,"HarshAwasthi",true
+3,"Pragati Jain",true
+4,"Kunjal Varshney",true
+
+Tv,8
