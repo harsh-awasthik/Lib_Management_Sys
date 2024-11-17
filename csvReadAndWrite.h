@@ -49,23 +49,64 @@ class csv
 
 
 
-    bool csvSearch(const string& filename, const string& search_item, int column)
+    bool csvSearch(const string& filename, const string& searchTerm, const string& columnName) 
     {
         ifstream file(filename);
-        if (!file.is_open())
-        {
-            cerr <<"File not opened correctly !"<<"\n";
+        string line;
+
+        if (!file.is_open()) {
+            cerr << "Could not open the file!" << endl;
             return false;
         }
 
-        string line;
-        vector<string> row = parseCSVLine(line);
-        
-        if (column < row.size() && row[column] == search_item)
-        {
-            return true;
+        // Read the header line to find the column index
+        getline(file, line);
+        stringstream headerStream(line);
+        string column;
+        int columnIndex = -1;
+        int currentIndex = 0;
+
+        while (getline(headerStream, column, ',')) {
+            if (column == columnName) {
+                columnIndex = currentIndex;
+                break;
+            }
+            currentIndex++;
         }
-        return false;
+
+        if (columnIndex == -1) {
+            cerr << "Column '" << columnName << "' not found!" << endl;
+            return false;
+        }
+
+        cout << "Searching for '" << searchTerm << "' in column '" << columnName << "'..." << endl;
+
+        // Search in the specified column
+        bool found = false;
+        while (getline(file, line)) {
+            stringstream ss(line);
+            string field;
+            int currentColumn = 0;
+
+            // Extract the value from the specific column
+            while (getline(ss, field, ',')) {
+                if (currentColumn == columnIndex) {
+                    if (field == searchTerm) {
+                        cout << "Match found: " << line << endl;
+                        found = true;
+                    }
+                    break; // No need to parse the remaining columns
+                }
+                currentColumn++;
+            }
+            
+        }
+
+        if (!found) {
+            cout << "No match found for '" << searchTerm << "' in column '" << columnName << "'." << endl;
+        }
+        return found;
+
         file.close();
     }
 
@@ -128,7 +169,5 @@ class csv
             remove(tempFilename.c_str());  // Delete temp file if no row was deleted
             cout << "No matching row found to delete." << endl;
         }
-    }
-    
-    
+    }    
 };

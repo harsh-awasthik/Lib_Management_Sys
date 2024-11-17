@@ -1,5 +1,4 @@
 #include <iostream>
-// #include "student.csv"
 #include "person.h"
 #pragma once
 
@@ -26,18 +25,18 @@ class student : public person
         cout <<"";
     }
 
-    bool Login(string Id)
+    bool Login(string studentId)
     {        
-
-        if (csvSearch(filename , Id, 1))
+        string colnname = "Student_Id";
+        if (csvSearch(filename , studentId, colnname))
         {
-            cout << "Login successful 🥳" <<endl;
+            cout << "Login successful " <<endl;
             return true;
         }
 
         else
         {
-            cout <<"User not found !"<<"\n";
+            cout <<"UserId not found !"<<"\n";
             cout <<"Enter valid Id 🙂"<<"\n";
         }
         return false;

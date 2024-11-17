@@ -23,33 +23,21 @@ public:
         cout <<"Default ";
     }
 
-    
-
     bool Login (string username, string password) 
     {
-        int count = 0;
-        while(count < 3) 
+        if (password == "Lib@2024" && username == "Ashraf_Sir")
         {
-            if (password == "Lib@2024" && username == "Ashraf_Sir" && count < 3)
-            {
-                cout << "Login Successful 🥳🥳 "<<"\n";
-                return true;
-            }
-            else
-            {               
-                if(count < 3)
-                {
-                    cout << "Invalid USername or password !!"<<"\n"; 
-                    count++; 
-                }    
-                else 
-                {
-                    cout << "Max Limit reached !!"<<"\n";
-                }    
-            }
-            return false;
+            cout << "Login Successful  "<<"\n";
+            return true;
         }
+        else
+        {               
+            cout << "Invalid USername or password !!"<<"\n"; 
+                     
+        }         
+        return false;
     }
+    
 
     void ReadStudentList()
     {
@@ -65,7 +53,8 @@ public:
 
     bool SearchAssignedList(string stud_id)
     {
-        if(csvSearch(filename3, stud_id, 0))
+        string colnname = "Student_Id";
+        if(csvSearch(filename3, stud_id, colnname))
         {
             return true;
         }
@@ -74,7 +63,8 @@ public:
 
     bool SearchBookslist(string bookname)
     {
-        if(csvSearch(filename2, bookname, 1))
+        string colmname = "Book_name";
+        if(csvSearch(filename2, bookname, colmname))
         {
             return true;          
         }
@@ -100,7 +90,14 @@ public:
     {
         //Adding student book and date into assigned list
         csvWriteAssignedList(filename3, stud_Id, book_id, date);
-        cout << "Student with student id " << stud_Id << " is added 🥳"<<"\n";
+        cout << "Student with student id " << stud_Id << " is added "<<"\n";
+    }
+
+    void AddBook(string bookname , string book_id)
+    {
+        //Adding  book and bookId into book list
+        csvWriteStudentList(filename2, bookname, book_id);
+        cout << bookname <<  " with  book id " << book_id << " is added "<<"\n";
     }
 
     
