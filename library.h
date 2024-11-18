@@ -1,10 +1,11 @@
 #include <iostream>
 #include "student.h"
 #include "librarian.h"
+#include "csvReadAndWrite.h"
 
 #pragma once
 
-class Library : public Student, Librarian 
+class Library : public Student, Librarian,csv
 {
     static const int MAX_BOOKS = 100;   // Maximum number of books
 
@@ -37,211 +38,49 @@ class Library : public Student, Librarian
         return 0;
     }
 
-    // Function to check if a student ID exists in the assigned list
+    void deposit(string stud_id, string date, string bookname) {
+    string column_name_student = "Student_Id";
+    string column_name_book = "Book_name";
 
-    bool searchAssignedList(const char* stud_id) {
-
-        ifstream file("assigned.csv");
-
-        if (!file) {
-            cout << "Error: Unable to open assigned.csv.\n";
-            return false;
-        }
-
-
-
-        char line[MAX_LINE_LEN];
-        while (file.getline(line, MAX_LINE_LEN)) {
-            if (strstr(line, stud_id)) { // Check if the line contains the student ID
-                file.close();
-                return true;
-            }
-        }
-
-        file.close();
-        return false;
-
+    // Check if the book is in the assigned list for the student
+    if (!csvSearch(filename3, stud_id, column_name_student)) {
+        cout << "No book is assigned to this student with ID: " << stud_id << endl;
+        return;
     }
 
-    // Function to update the book’s availability in the books.csv file
+    // Remove the row from assigned.csv
+    csvRemove(filename3, 0, stud_id);
+    cout << "Book \"" << bookname << "\" has been successfully returned by student with ID: " << stud_id << endl;
 
-    void updateBookAvailability(const char* book_id, const char* bookname) {
+    // Update the availability in books.csv
+    string tempFilename = "temp.csv";
+    ifstream booksFile(filename2);
+    ofstream tempFile(tempFilename);
 
-        fstream file("books.csv", ios::in | ios::out);
-
-        if (!file) {
-            cout << "Error: Unable to open books.csv for updating availability.\n";
-            return;
-        }
-
-
-
-        char line[MAX_LINE_LEN];
-
-        long pos;
-
-        while (file.getline(line, MAX_LINE_LEN)) {
-
-            if (strstr(line, book_id)) { // Check if the line contains the book ID
-
-                pos = file.tellg();     // Get the current position
-
-                file.seekp(pos - strlen(line) - 1); // Seek to the beginning of the line
-
-
-
-                // Create the updated line
-
-                char updated_line[MAX_LINE_LEN];
-
-                snprintf(updated_line, MAX_LINE_LEN, "%s,\"%s\",true", book_id, bookname);
-
-                file << updated_line << endl; // Write the updated line
-
-                break;
-
-            }
-
-        }
-
-
-
-        file.close();
-
+    if (!booksFile.is_open() || !tempFile.is_open()) {
+        cerr << "Error: Could not open the files for processing!" << endl;
+        return;
     }
 
-
-
-    // Function to remove a student record from assigned.csv
-
-    void csvRemove(const char* filename, const char* key) {
-
-        ifstream file(filename);
-
-        ofstream temp("temp.csv");
-
-        if (!file || !temp) {
-
-            cout << "Error: Unable to open files for modification.\n";
-
-            return;
-
+    string line;
+    while (getline(booksFile, line)) {
+        vector<string> row = parseCSVLine(line);
+        if (row.size() >= 2 && row[1] == bookname) {
+            // Update the availability to true
+            tempFile << row[0] << "," << row[1] << ",true\n";
+        } else {
+            tempFile << line << "\n";
         }
-
-
-
-        char line[MAX_LINE_LEN];
-
-        while (file.getline(line, MAX_LINE_LEN)) {
-
-            if (!strstr(line, key)) { // Copy all lines except the one with the key
-
-                temp << line << endl;
-
-            }
-
-        }
-
-
-
-        file.close();
-
-        temp.close();
-
-
-
-        // Replace the original file with the temporary file
-
-        remove(filename);
-
-        rename("temp.csv", filename);
-
     }
 
+    booksFile.close();
+    tempFile.close();
 
+    // Replace books.csv with the updated file
+    remove(filename2.c_str());
+    rename(tempFilename.c_str(), filename2.c_str());
+    cout << "Book \"" << bookname << "\" is now marked as available in books.csv." << endl;
+}
 
-public:
-
-    void deposit(const char* stud_id, const char* date, const char* bookname) {
-
-        // Step 1: Check if the student ID exists in the assigned list
-
-        if (!searchAssignedList(stud_id)) {
-
-            cout << "Error: No record found for student ID: " << stud_id 
-
-                 << " in the assigned list.\n";
-
-            return;
-
-        }
-
-
-
-        // Step 2: Retrieve the book ID corresponding to the book name
-
-        ifstream booksFile("books.csv");
-
-        if (!booksFile) {
-
-            cout << "Error: Unable to open books.csv.\n";
-
-            return;
-
-        }
-
-
-
-        char book_id[50] = "";
-
-        char line[MAX_LINE_LEN];
-
-        while (booksFile.getline(line, MAX_LINE_LEN)) {
-
-            if (strstr(line, bookname)) { // Check if the line contains the book name
-
-                sscanf(line, "%[^,]", book_id); // Extract the book ID from the line
-
-                break;
-
-            }
-
-        }
-
-
-
-        booksFile.close();
-
-
-
-        if (strlen(book_id) == 0) {
-
-            cout << "Error: Book name \"" << bookname << "\" not found in the books list.\n";
-
-            return;
-
-        }
-
-
-
-        // Step 3: Update the book’s availability in the books list
-
-        updateBookAvailability(book_id, bookname);
-
-
-
-        // Step 4: Remove the student record from assigned.csv
-
-        csvRemove("assigned.csv", stud_id);
-
-
-
-        // Step 5: Log the successful deposit
-
-        cout << "Book \"" << bookname << "\" has been returned by student ID: " 
-
-             << stud_id << " on " << date << ". Availability of the book is now set to true.\n";
-
-    }
 
 };

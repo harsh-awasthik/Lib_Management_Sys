@@ -133,7 +133,7 @@ int main()
                 cout<<"enter date of submission of assigned_book:"<<endl;  
                 cin>>date;
 
-                library.deposit(studentId, date,bookName);
+                library.deposit(studentId,date,bookName);
                 return 0;
             }
             case 2:

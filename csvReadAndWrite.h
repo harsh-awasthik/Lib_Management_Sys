@@ -9,7 +9,7 @@ using namespace std;
 
 class csv 
 {
-    private:
+public:
     vector<string> parseCSVLine(const string& line)
     {
         vector<string> row;
@@ -24,7 +24,6 @@ class csv
         return row;
     }
 
-    public:
     void csvWriteStudentList(const string& filename, string option1, string option2)
     {
         ofstream file(filename, ios::app);
