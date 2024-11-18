@@ -5,7 +5,7 @@
 
 #pragma once
 
-class Person : public csv
+class Person : public virtual csv
 {
     public:
     string Name;

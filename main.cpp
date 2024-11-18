@@ -1,15 +1,22 @@
 #include <iostream> 
 #include <sstream> 
 #include <regex> 
-using namespace std;
 #include "library.h"
 #include "functions.h"
+using namespace std;
 
 bool isValidDate(const string& date) {
     // Regex pattern -> DD-MM-YYYY 
     regex datePattern("^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-[0-9]{4}$");
     return regex_match(date, datePattern);
 }
+
+string studentId;
+    bool isValidStudentId(const string &id)
+    {
+        regex idPattern("G[A-Z]\\d{4}"); // Pattern: G followed by any uppercase letter and 4 digits
+        return regex_match(id, idPattern);
+    }
 
 int main()
 {
@@ -67,18 +74,15 @@ int main()
                         string bookname, book_Id;
                         cout << "Enter Book name : ";
                         cin >> bookname;
-                        // cout << "Enter Book Id : ";
-                        // cin >> book_Id;
-
                         librarian.AddBook(bookname); 
                         break;                     
                     }
                     case 4:
                     {
-                        string bookname;
+                        
                         cout << "Enter Book name : ";
-                        cin >> bookname;
-                        librarian.removeBook(bookname); //Needed Changes//
+                        cin >> bookName;
+                        librarian.removeBook(bookName); //Needed Changes//
                         break;
                     }
                     case 5:
@@ -108,38 +112,60 @@ int main()
         Student student;
         Library library;
 
-        string studentId;
         if(choice == 1)
         {         
-            
-            studentId = student.SignUp();
+            while (true){
+                cout << "create your student_id (Format: G<AnyLetter>1234): ";
+                cin >> studentId;
+                if (isValidStudentId(studentId)) {
+                break;  
+                } else {
+                    cout << "Invalid student_id . Please enter in this correct format.\n";
+                }
+            }
+            student.SignUp(studentId);
         }
-
         else
-        {            
-            studentId = student.Login();
+        {           
+            while (true){
+                cout << "Enter your student_id (Format: G<AnyLetter>1234): ";
+                cin >> studentId;
+                if (isValidStudentId(studentId)) {
+                break;  
+                } else {
+                    cout << "Invalid student_id . Please enter the correct format.\n";
+                }
+            }
+            student.Login(studentId);
         }
 
         /*code for borrow and deposit */
         string options1[] = {"Deposit", "Borrow"};
         choice = selection(options1, 2);
+
                 
         switch (choice)
         {
             case 1: 
             {
-                cout<<"enter student id: "<<endl;
-                cin>>studentId;
-                cout<<"enter date of submission of assigned_book:"<<endl;  
-                cin>>date;
+                string assignedDate = library.getAssignedDate(studentId, "assigned.csv");
+                if (assignedDate.empty()) {
+                    cout << "No assigned date found for the student.\n";
+                } else {
+                    cout << "Assigned Date: " << assignedDate << endl;
 
-                library.deposit(studentId,date,bookName);
-                return 0;
+                    int fine = library.calculateFine(date,assignedDate);
+                    cout << "Fine: Rs. " << fine << endl;
+                    library.deposit(studentId,date,bookName);
+                }
+                break;
             }
             case 2:
             {
-                library.borrow(studentId, "", date);
-                return 0;
+                cout << "Enter Book name: "; // Asking for book name for borrowing
+                cin >> bookName;
+                library.borrow(studentId, bookName, date); // Borrow method updated to pass bookName
+                break; 
             }              
         }     
     }

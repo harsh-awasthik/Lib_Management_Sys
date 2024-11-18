@@ -1,6 +1,28 @@
-book_id,Book_name,Availability
-1,"Ayush_goyal",true
-2,"HarshAwasthi",true
-3,"Pragati Jain",true
-4,"Kunjal Varshney",true
-5,"hello",true
+"book_id","Book_name","Availability"
+1,"Engineering Mechanics",true
+2,"Engineering Mathematics",true
+3,"The Art of Problem Solving",true
+4,"How Things Work: The Physics of Everyday Life",true
+5,"C Programming Language",true
+6,"Introduction to Algorithms",true
+7,"Python Crash Course",true
+8,"Clean Code",true
+9,"The Art of Electronics",true
+10,"Microelectronic Circuits",true
+11,"Electrical Engineering: Principles and Applications",true
+12,"Mechanics of Materials",true
+13,"Shigley Mechanical Engineering Design",true
+14,"Thermodynamics: An Engineering Approach",true
+15,"Structural Analysis",true
+16,"Principles of Foundation Engineering",true
+17,"Surveying Vol. 1 & 2",true
+18,"Introduction to Chemical Engineering Thermodynamics",true
+19,"Transport Processes and Separation Process Principles",true
+20,"Perry's Chemical Engineers' Handbook",true
+21,"The Design of Everyday Things",true
+22,"The Elements of Style",true
+23,"Effective Engineering",true
+24,"Mathematical Methods for Physics and Engineering",true
+25,"Engineering Drawing and Design",true
+26,"The Feynman Lectures on Physics",true
+27,"book",true
