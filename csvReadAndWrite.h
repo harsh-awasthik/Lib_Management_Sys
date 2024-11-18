@@ -46,8 +46,6 @@ public:
         file.close();
     }
 
-
-
     bool csvSearch(const string& filename, const string& searchTerm, const string& columnName) 
     {
         ifstream file(filename);
@@ -77,8 +75,6 @@ public:
             cerr << "Column '" << columnName << "' not found!" << endl;
             return false;
         }
-
-        cout << "Searching for '" << searchTerm << "' in column '" << columnName << "'..." << endl;
 
         // Search in the specified column
         bool found = false;
@@ -163,10 +159,9 @@ public:
         if (found) {
             remove(filename.c_str());
             rename(tempFilename.c_str(), filename.c_str());
-            cout << "Row with value '" << targetValue << "' in column " << column << " deleted successfully." << endl;
         } else {
             remove(tempFilename.c_str());  // Delete temp file if no row was deleted
-            cout << "No matching row found to delete." << endl;
+            cout << "No matching found " << endl;
         }
     }    
 };

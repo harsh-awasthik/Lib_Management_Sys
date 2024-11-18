@@ -2,7 +2,7 @@
 #include "person.h"
 #pragma once
 
-class Librarian : public Person
+class Librarian : public Person,public virtual csv
 {
 private:
     string pass = "a";
@@ -22,7 +22,7 @@ public:
     Librarian(int id, string name, bool avail = true) : bookId(id), bookName(name), availability(avail) {}
 
     vector<Librarian> books; // In-memory list of books
-    int lastBookId = 4; // Tracks the last book ID
+    int lastBookId = 0; // Tracks the last book ID
 
     void SignUp()
     {
@@ -134,67 +134,3 @@ public:
     }
 
 };
-//  cout <<""<<endl;
-//         int z;
-//         cin >>z
-//         void list( z)
-//         {
-//             switch (x)
-//             {
-//             case 1:
-//                 cout << "Read Student   list ";
-//                 //filename = student.csv
-//                 csvRead(filename1);
-//                 break;
-//             case 2:
-//                 cout << " Update Student list ";
-//                 // Update
-//                 int y;
-//                 cout << "For add press 1" << "\n"
-//                     << "For remove press 2" << "\n";
-//                 cin >> y;
-//                 if (y == 1)
-//                 {
-//                     //filename = assigned.csv
-//                     csvWrite(filename2, Name, Id);
-//                 }
-//                 else if (y == 2)
-//                 {
-//                     //csvRemove();
-//                 }
-//                 else
-//                 {
-//                     cout <<"Invalid Input 😥";
-//                 }
-//                 break;
-
-//             case 3:
-//                 cout << "Read Books list ";
-//                 //filename = book.csv
-//                 csvRead(filename3);
-//                 break;
-//             case 4:
-//                 cout << "Update Student and Books list ";
-//                 // Update
-//                 int y;
-//                 cout << "For add press 1" << "\n"
-//                     << "For remove press 2" << "\n";
-//                 cin >> y;
-//                 if (y == 1)
-//                 {
-//                     //filename = assigned.csv
-//                     csvWrite(filename2, Name, Id);
-//                 }
-//                 else if (y == 2)
-//                 {
-//                     //csvRemove();
-//                 }
-//                 else
-//                 {
-//                     cout <<"Invalid Input 😥";
-//                 }
-                
-//                 default:
-//                     break;
-//             }
-//         }
