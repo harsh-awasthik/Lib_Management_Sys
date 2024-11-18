@@ -1,4 +1,5 @@
 #include <iostream> 
+#include <sstream> 
 #include <regex> 
 using namespace std;
 #include "library.h"
@@ -14,6 +15,7 @@ int main()
 {
     int choice;
     string date;
+    string bookName; // add bookname by kp
     
     while(true){
         cout << "Enter date (DD-MM-YYYY) : ";
@@ -126,7 +128,12 @@ int main()
         {
             case 1: 
             {
-                library.deposit(studentId, date);
+                cout<<"enter student id: "<<endl;
+                cin>>studentId;
+                cout<<"enter date of submission of assigned_book:"<<endl;  
+                cin>>date;
+
+                library.deposit(studentId, date,bookName);
                 return 0;
             }
             case 2:
