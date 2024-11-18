@@ -7,12 +7,22 @@ class Librarian : public Person
 private:
     string pass = "a";
     string Id = "a";
+    int bookId;
+    string bookName;
+    bool availability;
+
 protected:
     string filename1 = "student.csv";   
     string filename2 = "books.csv";
     string filename3 = "assigned.csv";
 
 public:
+    Librarian(){} // default constructor 
+    // Constructor
+    Librarian(int id, string name, bool avail = true) : bookId(id), bookName(name), availability(avail) {}
+
+    vector<Librarian> books; // In-memory list of books
+    int lastBookId = 4; // Tracks the last book ID
 
     void SignUp()
     {
@@ -103,14 +113,26 @@ public:
         cout << "Student with student id " << stud_Id << " is added "<<"\n";
     }
 
-    void AddBook(string bookname , string book_id)
+    void AddBook(string bookname)
     {
-        //Adding  book and bookId into book list
-        csvWriteStudentList(filename2, bookname, book_id);
-        cout << bookname <<  " with  book id " << book_id << " is added "<<"\n";
+        int newBookId = ++lastBookId;
+
+        // Create a new Book object and add it to the list
+        books.emplace_back(newBookId, bookname, true);
+        
+        ofstream outfile("books.csv", ios::app); // Open in append mode
+    if (outfile.is_open()) {
+        outfile << newBookId << ",\"" << bookname << "\",true\n";
+        outfile.close();
+
+        cout << "Book \"" << bookname << "\" with Book ID " << newBookId
+             << " is added successfully with availability set to true.\n";
+    } else {
+        cerr << "Error: Unable to open books.csv for writing.\n";
     }
 
-    
+    }
+
 };
 //  cout <<""<<endl;
 //         int z;

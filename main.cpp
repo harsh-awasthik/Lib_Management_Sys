@@ -1,14 +1,31 @@
-#include <iostream>
+#include <iostream> 
+#include <sstream> 
+#include <regex> 
 using namespace std;
 #include "library.h"
 #include "functions.h"
+
+bool isValidDate(const string& date) {
+    // Regex pattern -> DD-MM-YYYY 
+    regex datePattern("^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-[0-9]{4}$");
+    return regex_match(date, datePattern);
+}
 
 int main()
 {
     int choice;
     string date;
-    cout << "Enter date (DD-MM-YYYY) : ";
-    cin >> date; 
+    string bookName; // add bookname by kp
+    
+    while(true){
+        cout << "Enter date (DD-MM-YYYY) : ";
+        cin >> date;
+        if (isValidDate(date)) {
+            break;
+        } else {
+            cout << "Invalid date format! Please enter the date in DD-MM-YYYY format.\n";
+        }
+    } 
 
     string options[] = {"Librarian", "Student"};
     int x = selection(options, 2);
@@ -18,7 +35,7 @@ int main()
     {  
         cout << "----------------------------------" << endl;     
         cout << "Welcome to Librarian Section !!"<<"\n";
-        cout << "For accessing your actions you need to login!!"<<"\n";
+        cout << "For accessing your actions you need to cd !!"<<"\n";
 
         Librarian librarian;
 
@@ -50,10 +67,10 @@ int main()
                         string bookname, book_Id;
                         cout << "Enter Book name : ";
                         cin >> bookname;
-                        cout << "Enter Book Id : ";
-                        cin >> book_Id;
+                        // cout << "Enter Book Id : ";
+                        // cin >> book_Id;
 
-                        librarian.AddBook(bookname, book_Id); 
+                        librarian.AddBook(bookname); 
                         break;                     
                     }
                     case 4:
@@ -111,7 +128,12 @@ int main()
         {
             case 1: 
             {
-                library.deposit(studentId, date);
+                cout<<"enter student id: "<<endl;
+                cin>>studentId;
+                cout<<"enter date of submission of assigned_book:"<<endl;  
+                cin>>date;
+
+                library.deposit(studentId,date,bookName);
                 return 0;
             }
             case 2:
