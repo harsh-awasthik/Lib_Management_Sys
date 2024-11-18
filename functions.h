@@ -19,8 +19,6 @@ int selection(string* options, int size)
         options[i] = toLowerCase(options[i]);
     }
 
-
-
     while (true)
     {
         string input;
