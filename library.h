@@ -34,8 +34,15 @@ class Library : public Student, Librarian
         return 0;
     }
 
-    void deposit (string stud_id, string date)
+    void deposit (string stud_id, string date,string bookname)
     {
+      cout<<"enter student id: "<<endl;
+      cin>>stud_id;
+      cout<<"enter date of submission of assigned_book:"<<endl;  
+      cin>>date;
+      cout<<"enter book_name: "<<endl;
+      cin>>bookname;  
+
         
     }
 };

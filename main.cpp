@@ -5,7 +5,7 @@ using namespace std;
 #include "functions.h"
 
 bool isValidDate(const string& date) {
-    // Regex pattern for DD-MM-YYYY format
+    // Regex pattern -> DD-MM-YYYY 
     regex datePattern("^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-[0-9]{4}$");
     return regex_match(date, datePattern);
 }
@@ -19,7 +19,7 @@ int main()
         cout << "Enter date (DD-MM-YYYY) : ";
         cin >> date;
         if (isValidDate(date)) {
-            break; // Exit loop if date is valid
+            break;
         } else {
             cout << "Invalid date format! Please enter the date in DD-MM-YYYY format.\n";
         }
@@ -33,7 +33,7 @@ int main()
     {  
         cout << "----------------------------------" << endl;     
         cout << "Welcome to Librarian Section !!"<<"\n";
-        cout << "For accessing your actions you need to login!!"<<"\n";
+        cout << "For accessing your actions you need to cd !!"<<"\n";
 
         Librarian librarian;
 
@@ -65,10 +65,10 @@ int main()
                         string bookname, book_Id;
                         cout << "Enter Book name : ";
                         cin >> bookname;
-                        cout << "Enter Book Id : ";
-                        cin >> book_Id;
+                        // cout << "Enter Book Id : ";
+                        // cin >> book_Id;
 
-                        librarian.AddBook(bookname, book_Id); 
+                        librarian.AddBook(bookname); 
                         break;                     
                     }
                     case 4:
