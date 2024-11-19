@@ -54,7 +54,7 @@ public:
         }
     }
 
-    void deposit(string stud_id, string date, string bookname)
+    void deposit(string stud_id, string date, string bookname) // book is removed from assigned.csv but does not get added to book.csv for avaliabilty 
     {
         string column_name_student = "Student_Id";
         string column_name_book = "Book_name";

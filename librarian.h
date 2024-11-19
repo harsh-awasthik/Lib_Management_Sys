@@ -118,7 +118,7 @@ public:
         int newBookId = ++lastBookId;
 
         // Create a new Book object and add it to the list
-        books.emplace_back(newBookId, bookname, true);
+        books.emplace_back(newBookId, bookname, true);  // book add ho rhi hai but id 1 se start ho rhi hai 
         
         ofstream outfile("books.csv", ios::app); // Open in append mode
     if (outfile.is_open()) {
