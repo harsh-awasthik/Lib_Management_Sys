@@ -53,7 +53,7 @@ A simple Library Management System that allows librarians to manage books, track
 
 ## Screenshots
 
-![App Screenshot](ss/1.jpg)
-![App SS](ss/2.jpg)
-![App SS](ss/3.jpg)
+![App Screenshot](ss/1.png)
+![App SS](ss/2.png)
+![App SS](ss/3.png)
 
