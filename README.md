@@ -2,14 +2,13 @@
 # Library Management System
 
 ## 📝 Description
-A simple Library Management System that allows Librarians to manage books, track borrowing and returning, and maintain records efficiently. and allows the students to issue or return books.
-
+A simple Library Management System that allows librarians to manage books, track borrowing and returning, and maintain records efficiently. It also allows students to issue or return books.
 
 ## 🚀 Features
-- The code is Completely written in C++ with help of object oriented programming.
-- Integrated CSV filesystem for tracking books, students etc.
-- Used RegEx for verifying the Date, Enrollment No. etc.
-- Deployed Password authentication for Librarians.
+- The code is completely written in C++ using object-oriented programming.
+- Integrated a CSV filesystem for tracking books, students, etc.
+- Used RegEx for verifying dates, enrollment numbers, etc.
+- Implemented password authentication for librarians.
 
 ## 🛠️ Installation
 1. Clone the repository:
