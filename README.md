@@ -18,14 +18,14 @@ A simple Library Management System that allows librarians to manage books, track
    ```
 
 2. Install G++ Compiler (If not installed):
-```sh
-sudo apt update
-sudo apt install g++
-```
+   ```sh
+   sudo apt update
+   sudo apt install g++
+   ```
 3. **Compile the Application using:**
-```sh
-g++ management/main.cpp
-```
+   ```sh
+   g++ management/main.cpp
+   ```
 
 4. Run the app:
 `./a.out` (For linux/MacOS) or `./a.exe` (For Windows)
